@@ -61,7 +61,7 @@ class IconManagerService {
           throw new Error(`Unknown icon pack: ${packName}`);
       }
 
-      const icons = flattenCollections([pack.default]);
+      const icons = flattenCollections([pack.default]) as unknown as DiagramIcon[];
       this.iconCache.set(packName, icons);
       this.loadedPacks.add(packName);
       return icons;
@@ -94,13 +94,15 @@ class IconManagerService {
       const azureIsopack = require('@isoflow/isopacks/dist/azure').default;
       const kubernetesIsopack = require('@isoflow/isopacks/dist/kubernetes').default;
 
-      return flattenCollections([
+      // Ensure each icon matches the DiagramIcon type (with index signature)
+      const flattened = flattenCollections([
         isoflowIsopack,
         awsIsopack,
         azureIsopack,
         gcpIsopack,
         kubernetesIsopack
       ]);
+      return flattened.map(icon => ({ ...icon })) as DiagramIcon[];
     } catch (error) {
       console.error('Failed to load icon packs:', error);
       return [];
