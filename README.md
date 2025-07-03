@@ -136,8 +136,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 Isoflow is released under the MIT license.
 
-Saga3D is released under the Unlicense license, do what you want with it.
-
 ## Acknowledgments
 
 Built with the [Isoflow](https://github.com/markmanx/isoflow) library.
