@@ -1,8 +1,9 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { theme } from '../styles/theme';
 
 interface Props {
   children: ReactNode;
-  fallbackComponent?: ReactNode;
+  fallbackUI?: ReactNode;
 }
 
 interface State {
@@ -47,16 +48,16 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      if (this.props.fallbackComponent) {
-        return this.props.fallbackComponent;
+      if (this.props.fallbackUI) {
+        return this.props.fallbackUI;
       }
 
       return (
         <div style={{
-          padding: '40px',
+          padding: theme.spacing.xl,
           textAlign: 'center',
-          backgroundColor: 'var(--saga-surface-primary)',
-          color: 'var(--saga-text-primary)',
+          backgroundColor: theme.colors.background,
+          color: theme.colors.textPrimary,
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
@@ -65,22 +66,22 @@ export class ErrorBoundary extends Component<Props, State> {
         }}>
           <div style={{
             maxWidth: '600px',
-            padding: '32px',
-            backgroundColor: 'var(--saga-surface-secondary)',
-            borderRadius: 'var(--saga-radius-lg)',
-            border: '1px solid var(--saga-border)'
+            padding: theme.spacing.lg,
+            backgroundColor: theme.colors.surface,
+            borderRadius: theme.borderRadius.lg,
+            border: `1px solid ${theme.colors.border}`
           }}>
             <h1 style={{ 
-              color: 'var(--saga-error-500)', 
-              marginBottom: '24px',
-              fontSize: '24px'
+              color: theme.colors.danger, 
+              marginBottom: theme.spacing.md,
+              fontSize: theme.fontSizes.xl
             }}>
               🚨 Saga3D Error
             </h1>
             
             <p style={{ 
-              marginBottom: '24px',
-              color: 'var(--saga-text-secondary)',
+              marginBottom: theme.spacing.md,
+              color: theme.colors.textSecondary,
               lineHeight: '1.6'
             }}>
               Something went wrong while rendering the application. 
@@ -89,18 +90,18 @@ export class ErrorBoundary extends Component<Props, State> {
 
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: theme.spacing.md,
               justifyContent: 'center',
-              marginBottom: '32px'
+              marginBottom: theme.spacing.lg
             }}>
               <button
                 onClick={this.handleReload}
                 style={{
-                  padding: '12px 24px',
-                  backgroundColor: 'var(--saga-accent-600)',
+                  padding: `${theme.spacing.sm} ${theme.spacing.md}`,
+                  backgroundColor: theme.colors.primary,
                   color: 'white',
                   border: 'none',
-                  borderRadius: 'var(--saga-radius-md)',
+                  borderRadius: theme.borderRadius.md,
                   cursor: 'pointer',
                   fontWeight: '500'
                 }}
@@ -111,11 +112,11 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 onClick={this.handleReset}
                 style={{
-                  padding: '12px 24px',
-                  backgroundColor: 'var(--saga-surface-tertiary)',
-                  color: 'var(--saga-text-primary)',
-                  border: '1px solid var(--saga-border)',
-                  borderRadius: 'var(--saga-radius-md)',
+                  padding: `${theme.spacing.sm} ${theme.spacing.md}`,
+                  backgroundColor: theme.colors.surface,
+                  color: theme.colors.textPrimary,
+                  border: `1px solid ${theme.colors.border}`,
+                  borderRadius: theme.borderRadius.md,
                   cursor: 'pointer'
                 }}
               >
@@ -126,25 +127,25 @@ export class ErrorBoundary extends Component<Props, State> {
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details style={{
                 textAlign: 'left',
-                backgroundColor: 'var(--saga-surface-primary)',
-                padding: '16px',
-                borderRadius: 'var(--saga-radius-sm)',
-                border: '1px solid var(--saga-border)',
-                marginTop: '24px'
+                backgroundColor: theme.colors.background,
+                padding: theme.spacing.md,
+                borderRadius: theme.borderRadius.sm,
+                border: `1px solid ${theme.colors.border}`,
+                marginTop: theme.spacing.md
               }}>
                 <summary style={{ 
                   cursor: 'pointer', 
-                  marginBottom: '16px',
+                  marginBottom: theme.spacing.md,
                   fontWeight: '500',
-                  color: 'var(--saga-warning-500)'
+                  color: theme.colors.warning
                 }}>
                   🔧 Error Details (Development Mode)
                 </summary>
                 
                 <div style={{
-                  fontSize: '14px',
+                  fontSize: theme.fontSizes.sm,
                   fontFamily: 'monospace',
-                  color: 'var(--saga-text-secondary)',
+                  color: theme.colors.textSecondary,
                   whiteSpace: 'pre-wrap',
                   overflow: 'auto',
                   maxHeight: '200px'
