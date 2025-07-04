@@ -13,7 +13,7 @@ import { StorageManager } from './features/storage';
 import { getIconManager } from './utils/iconManager';
 import './App.css';
 
-const App: React.FC = () => {
+const ModernApp: React.FC = () => {
   const [showStorageManager, setShowStorageManager] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
@@ -83,4 +83,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default ModernApp;
