@@ -1,15 +1,17 @@
 /**
  * Modernized App Component - Clean architecture using new components and context
  * 
- * This replaces the monolithic App.tsx with a clean, modular structure.
- * Uses the DiagramContext for state management and modular components.
+ * This replaces the monolithic App.tsx with a clean, modular structure
+ * using AppLayout, enhanced components, and optimized state management.
  */
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { DiagramProvider } from './contexts/DiagramContext';
+import { AppLayout } from './components/layout';
 import { DiagramToolbar } from './components/layout';
 import { DiagramCanvas } from './features/diagram/components';
 import { StorageManager } from './features/storage';
+import { Spinner, ErrorBoundary } from './components/ui';
 import { getIconManager } from './utils/iconManager';
 import './App.css';
 
@@ -29,27 +31,31 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const handleModelChange = (data: any) => {
+  const handleModelChange = React.useCallback((data: any) => {
     // This would be handled by the diagram context
     // For now, just log the changes
     console.log('Model updated:', data);
-  };
+  }, []);
 
   return (
     <DiagramProvider>
-      <div className="app">
-        <DiagramToolbar
-          onStorageManagerOpen={() => setShowStorageManager(true)}
-          onImportDialog={() => setShowImportDialog(true)}
-          onExportDialog={() => setShowExportDialog(true)}
-        />
-        
-        <main className="app-main">
-          <DiagramCanvas
-            className="main-canvas"
-            onModelChange={handleModelChange}
+      <AppLayout
+        toolbar={
+          <DiagramToolbar
+            onStorageManagerOpen={() => setShowStorageManager(true)}
+            onImportDialog={() => setShowImportDialog(true)}
+            onExportDialog={() => setShowExportDialog(true)}
           />
-        </main>
+        }
+      >
+        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+          <Suspense fallback={<Spinner size="lg" />}>
+            <DiagramCanvas
+              className="main-canvas"
+              onModelChange={handleModelChange}
+            />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Modals */}
         {showStorageManager && (
@@ -78,7 +84,7 @@ const App: React.FC = () => {
             </div>
           </div>
         )}
-      </div>
+      </AppLayout>
     </DiagramProvider>
   );
 };

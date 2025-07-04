@@ -1,29 +1,30 @@
 /**
- * Diagram Toolbar - Main toolbar for diagram operations
+ * Enhanced Diagram Toolbar - Main toolbar for diagram operations
  * 
- * Contains controls for creating, saving, loading, and managing diagrams.
- * Uses the diagram context for state management and operations.
+ * Provides a comprehensive set of diagram management tools with improved
+ * performance, accessibility, and user experience.
  */
 
-import React, { useState } from 'react';
-import { Button } from '../ui/Button';
-import { Dialog } from '../ui/Dialog';
+import React, { useState, useCallback } from 'react';
+import { Button, Dialog } from '../ui';
 import { useDiagram } from '../../contexts/DiagramContext';
 import type { SavedDiagram } from '../../types';
 import './DiagramToolbar.css';
 
 interface DiagramToolbarProps {
-  className?: string;
-  onStorageManagerOpen?: () => void;
-  onImportDialog?: () => void;
-  onExportDialog?: () => void;
+  readonly className?: string;
+  readonly onStorageManagerOpen?: () => void;
+  readonly onImportDialog?: () => void;
+  readonly onExportDialog?: () => void;
+  readonly 'data-testid'?: string;
 }
 
-export const DiagramToolbar: React.FC<DiagramToolbarProps> = ({
+export const DiagramToolbar = React.memo<DiagramToolbarProps>(({
   className = '',
   onStorageManagerOpen,
   onImportDialog,
   onExportDialog,
+  'data-testid': testId,
 }) => {
   const {
     state,
@@ -46,7 +47,8 @@ export const DiagramToolbar: React.FC<DiagramToolbarProps> = ({
     }
   }, [state.currentDiagram]);
 
-  const handleNewDiagram = () => {
+  // Optimized event handlers with useCallback
+  const handleNewDiagram = useCallback(() => {
     if (state.hasUnsavedChanges) {
       const confirmed = window.confirm('You have unsaved changes. Continue creating new diagram?');
       if (!confirmed) return;
@@ -54,14 +56,14 @@ export const DiagramToolbar: React.FC<DiagramToolbarProps> = ({
 
     createNewDiagram();
     setDiagramName('Untitled Diagram');
-  };
+  }, [state.hasUnsavedChanges, createNewDiagram]);
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     if (!state.currentDiagram) return;
     setShowSaveDialog(true);
-  };
+  }, [state.currentDiagram]);
 
-  const handleSaveConfirm = async () => {
+  const handleSaveConfirm = useCallback(async () => {
     if (!diagramName.trim()) {
       alert('Please enter a diagram name');
       return;
@@ -72,11 +74,11 @@ export const DiagramToolbar: React.FC<DiagramToolbarProps> = ({
       setShowSaveDialog(false);
       updateDiagramTitle(diagramName.trim());
     }
-  };
+  }, [diagramName, saveDiagram, updateDiagramTitle]);
 
-  const handleLoad = () => {
+  const handleLoad = useCallback(() => {
     setShowLoadDialog(true);
-  };
+  }, []);
 
   const handleLoadDiagram = (diagram: SavedDiagram) => {
     loadDiagram(diagram);
@@ -269,4 +271,6 @@ export const DiagramToolbar: React.FC<DiagramToolbarProps> = ({
       </Dialog>
     </div>
   );
-};
+});
+
+DiagramToolbar.displayName = 'DiagramToolbar';

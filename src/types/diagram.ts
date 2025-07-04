@@ -131,7 +131,10 @@ export interface ConnectionCreationData {
 // Icon and icon collection types
 export interface Icon {
   readonly id: string;
-  readonly name?: string;
+  readonly name: string;
+  readonly url: string; // Required for Isoflow compatibility
+  readonly collection?: string;
+  readonly isIsometric?: boolean;
   readonly tags?: readonly string[];
   readonly metadata?: Record<string, unknown>;
   // Additional properties that isoflow icons might have (flexible for compatibility)

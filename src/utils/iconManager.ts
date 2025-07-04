@@ -68,8 +68,11 @@ export class IconManager {
     if (this.initialized) return;
 
     try {
-      // Load all icons from all packs
-      this.allIcons = flattenCollections(Object.values(AVAILABLE_ISOPACKS)) as unknown as Icon[];
+      // Load all icons from all packs and transform them to include URLs
+      const rawIcons = flattenCollections(Object.values(AVAILABLE_ISOPACKS)) as unknown as any[];
+      
+      // Transform raw icons to ensure they have the required url property
+      this.allIcons = rawIcons.map(rawIcon => this.transformIcon(rawIcon));
       
       // Extract essential icons
       this.essentialIcons = this.getEssentialIcons();
@@ -176,6 +179,34 @@ export class IconManager {
   }
 
   /**
+   * Add a new icon to the collection
+   */
+  addIcon(iconData: Partial<Icon> & { name: string }): Icon {
+    this.ensureInitialized();
+    
+    const newIcon: Icon = {
+      id: iconData.id || this.generateIconId(iconData),
+      name: iconData.name,
+      url: iconData.url || this.generateIconUrl(iconData),
+      collection: iconData.collection || 'custom',
+      isIsometric: iconData.isIsometric !== false,
+      tags: iconData.tags || [],
+      metadata: iconData.metadata || {},
+    };
+    
+    this.allIcons.push(newIcon);
+    return newIcon;
+  }
+
+  /**
+   * Get icon by name (first match)
+   */
+  getIconByName(name: string): Icon | undefined {
+    this.ensureInitialized();
+    return this.allIcons.find(icon => icon.name?.toLowerCase() === name.toLowerCase());
+  }
+
+  /**
    * Get available pack names
    */
   getAvailablePacks(): IsopackName[] {
@@ -210,12 +241,48 @@ export class IconManager {
   }
 
   /**
+   * Transform raw icon data to ensure it has the required url property
+   */
+  private transformIcon(rawIcon: any): Icon {
+    // Generate URL if not present
+    const url = rawIcon.url || rawIcon.src || this.generateIconUrl(rawIcon);
+    
+    return {
+      id: rawIcon.id || this.generateIconId(rawIcon),
+      name: rawIcon.name || rawIcon.id || 'Unknown Icon',
+      url: url,
+      collection: rawIcon.collection || 'default',
+      isIsometric: rawIcon.isIsometric !== false, // Default to true
+      tags: rawIcon.tags || [],
+      metadata: rawIcon.metadata || {},
+      ...rawIcon, // Preserve any additional properties
+    };
+  }
+
+  /**
+   * Generate a URL for an icon based on its properties
+   */
+  private generateIconUrl(icon: any): string {
+    const name = icon.name || icon.id || 'default';
+    // Create a data URL or placeholder URL
+    return `data:image/svg+xml;base64,${btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="12" y="12" text-anchor="middle" font-size="8">${name}</text></svg>`)}`;
+  }
+
+  /**
+   * Generate an ID for an icon if not present
+   */
+  private generateIconId(icon: any): string {
+    return icon.id || icon.name?.toLowerCase().replace(/\s+/g, '-') || `icon-${Date.now()}`;
+  }
+
+  /**
    * Group icons by their pack
    */
   private groupIconsByPack(): void {
     Object.entries(AVAILABLE_ISOPACKS).forEach(([name, pack]) => {
       try {
-        const packIcons = flattenCollections([pack]) as unknown as Icon[];
+        const rawPackIcons = flattenCollections([pack]) as unknown as any[];
+        const packIcons = rawPackIcons.map(rawIcon => this.transformIcon(rawIcon));
         this.iconsByPack.set(name as IsopackName, packIcons);
       } catch (error) {
         console.error(`Failed to load ${name} isopack:`, error);

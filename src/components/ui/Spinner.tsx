@@ -1,31 +1,45 @@
 import React from 'react';
 import { SpinnerProps } from '../../types';
+import { cn } from '../../utils/classNames';
+import './Spinner.css';
 
 /**
  * A loading spinner component with size variants
  * 
+ * Provides visual feedback for loading states with consistent sizing
+ * that matches the design system.
+ * 
  * @example
  * ```tsx
  * <Spinner size="md" />
+ * 
+ * <Button isLoading>
+ *   <Spinner size="sm" className="mr-2" />
+ *   Loading...
+ * </Button>
  * ```
  */
 export const Spinner = React.memo<SpinnerProps>(({
   size = 'md',
   color = 'currentColor',
   'data-testid': testId,
-  className = ''
+  className
 }) => {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8'
+    sm: 'spinner--sm',
+    md: 'spinner--md',
+    lg: 'spinner--lg'
   };
 
-  const classes = `animate-spin ${sizeClasses[size]} ${className}`;
+  const spinnerClasses = cn(
+    'spinner',
+    sizeClasses[size],
+    className
+  );
 
   return (
     <svg 
-      className={classes}
+      className={spinnerClasses}
       xmlns="http://www.w3.org/2000/svg" 
       fill="none" 
       viewBox="0 0 24 24"

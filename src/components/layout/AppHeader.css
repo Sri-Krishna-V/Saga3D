@@ -1,0 +1,62 @@
+/**
+ * App Header Styles
+ * 
+ * Styles for the application header component
+ */
+
+.app-header {
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header__logo {
+  width: 32px;
+  height: 32px;
+  background-color: #2563eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header__logo-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.app-header__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header__title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111827;
+  margin: 0;
+  line-height: 1;
+}
+
+.app-header__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
