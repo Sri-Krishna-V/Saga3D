@@ -1,5 +1,5 @@
 services:
-  openflow:
+  saga3d:
     pull_policy: build
     build:
       context: ./

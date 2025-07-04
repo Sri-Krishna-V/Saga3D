@@ -1,7 +1,7 @@
 {
   "short_name": "Saga3D",
-  "name": "Saga3D - System Architecture in 3D",
-  "description": "Tell your system's saga in 3D - Create stunning isometric system architecture diagrams",
+  "name": "Saga3D - Tell your system's saga in 3D",
+  "description": "Tell your system's saga in 3D - A powerful isometric diagramming tool",
   "icons": [
     {
       "src": "favicon.ico",
@@ -23,8 +23,8 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#18181B",
-  "background_color": "#27272A",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "scope": "/",
   "categories": ["productivity", "utilities", "graphics"]

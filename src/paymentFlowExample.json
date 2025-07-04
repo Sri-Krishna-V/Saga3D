@@ -1,12 +1,12 @@
 {
-  "title": "Microservices System Architecture",
+  "title": "E-Commerce Payment Processing Saga",
   "icons": [],
   "colors": [
     { "id": "blue", "value": "#0066cc" },
-    { "id": "green", "value": "#22C55E" },
-    { "id": "red", "value": "#ef4444" },
-    { "id": "orange", "value": "#FF6B35" },
-    { "id": "purple", "value": "#A855F7" }
+    { "id": "green", "value": "#00aa00" },
+    { "id": "red", "value": "#cc0000" },
+    { "id": "orange", "value": "#ff9900" },
+    { "id": "purple", "value": "#9900cc" }
   ],
   "items": [
     {

@@ -1,29 +1,33 @@
 # Saga3D - Tell your system's saga in 3D
 
-Saga3D is a powerful, modern Progressive Web App (PWA) for creating stunning isometric system architecture diagrams. Built with React, TypeScript, and the Isoflow library, it runs entirely in your browser with offline support.
+Saga3D is a powerful, open-source Progressive Web App (PWA) for creating beautiful isometric diagrams. Built with React and the Isoflow (Now forked and published to NPM as fossflow) library, it runs entirely in your browser with offline support.
+
+*Tell your system's saga in 3D*
 
 ![Screenshot_20250630_160954](https://github.com/user-attachments/assets/e7f254ad-625f-4b8a-8efc-5293b5be9d55)
 
-**🎯 Perfect for:** System architects, developers, and anyone building distributed systems, microservices, or technical documentation.
 
-## 🚀 Features
 
-- 🏗️ **System Architecture Focused** - Purpose-built for system design and distributed architectures
-- 🎨 **Isometric 3D Diagrams** - Create stunning, modern technical diagrams
-- 💾 **Smart Auto-Save** - Your work is automatically saved every 5 seconds
-- 📱 **PWA Support** - Install as a native app on desktop and mobile
+- **📝 [FOSSFLOW_TODO.md](https://github.com/stan-smith/fossflow-lib/blob/main/ISOFLOW_TODO.md)** - Current issues and roadmap with codebase mappings, most gripes are with the isoflow library itself.
+- **🤝 [CONTRIBUTORS.md](https://github.com/stan-smith/fossflow-lib/blob/main/CONTRIBUTORS.md)** - How to contribute to the project.
+
+
+## Features
+
+- 🎨 **Isometric Diagramming** - Create stunning 3D-style technical diagrams
+- 💾 **Auto-Save** - Your work is automatically saved every 5 seconds
+- 📱 **PWA Support** - Install as a native app on Mac and Linux
 - 🔒 **Privacy-First** - All data stored locally in your browser
 - 📤 **Import/Export** - Share diagrams as JSON files
 - 🎯 **Session Storage** - Quick save without dialogs
 - 🌐 **Offline Support** - Work without internet connection
-- ⌨️ **Keyboard Shortcuts** - Streamlined workflow for power users
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/saga3d
-cd saga3d
+git clone https://github.com/stan-smith/Saga3D
+cd Saga3D
 
 # Make sure you have npm installed
 
@@ -63,6 +67,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `Delete` - Remove selected items
 - Mouse wheel - Zoom in/out
 - Click and drag - Pan around canvas
+- ***NEW*** Crtl+Z undo Ctrl+Y redo
 
 ## Building for Production
 
@@ -76,12 +81,18 @@ npx serve -s build
 
 The build folder contains all files needed for deployment.
 
+If you need the app to be deployed to a custom path (i.e. not root), use instead:
+```bash
+# Create optimized production build for given path
+PUBLIC_URL="https://mydomain.tld/path/to/app" npm run build
+```
+That will add the defined `PUBLIC_URL` as a prefix to all links to static files.
+
 ## Deployment
 
 ### Static Hosting
 
 Deploy the `build` folder to any static hosting service:
-
 - GitHub Pages
 - Netlify
 - Vercel
@@ -104,19 +115,16 @@ Deploy the `build` folder to any static hosting service:
 ## Troubleshooting
 
 ### Storage Full
-
 - Use Storage Manager to free space
 - Export and delete old diagrams
 - Clear browser data (last resort - will delete all diagrams)
 
 ### Can't Install PWA
-
 - Ensure using HTTPS
 - Try Chrome or Edge browsers
 - Check if already installed
 
 ### Lost Diagrams
-
 - Check browser's localStorage
 - Look for auto-saved versions
 - Always export important work
@@ -136,8 +144,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 Isoflow is released under the MIT license.
 
+Saga3D is released under the Unlicense license, do what you want with it.
+
 ## Acknowledgments
 
 Built with the [Isoflow](https://github.com/markmanx/isoflow) library.
 
-x0z.co
+Tell your system's saga in 3D with Saga3D.

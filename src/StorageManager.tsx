@@ -82,123 +82,110 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
   const storagePercentage = (storageInfo.used / (5 * 1024 * 1024)) * 100; // Assume 5MB limit
 
   return (
-    <div className="dialog-overlay">
-      <div className="dialog fade-in" style={{ maxWidth: '600px' }}>
-        <h2>🗄️ Storage Manager</h2>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1001
+    }}>
+      <div style={{
+        backgroundColor: 'white',
+        padding: '30px',
+        borderRadius: '8px',
+        maxWidth: '500px',
+        width: '90%'
+      }}>
+        <h2 style={{ marginTop: 0 }}>Storage Manager</h2>
         
-        <div style={{ marginBottom: '24px' }}>
-          <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: '600' }}>Storage Usage</h3>
+        <div style={{ marginBottom: '20px' }}>
+          <h3>Storage Usage</h3>
           <div style={{
-            backgroundColor: '#e2e8f0',
-            borderRadius: '8px',
-            height: '24px',
+            backgroundColor: '#e0e0e0',
+            borderRadius: '4px',
+            height: '20px',
             overflow: 'hidden',
-            marginBottom: '12px',
-            position: 'relative'
+            marginBottom: '10px'
           }}>
             <div style={{
-              backgroundColor: storagePercentage > 80 ? '#f56565' : storagePercentage > 60 ? '#ed8936' : '#48bb78',
+              backgroundColor: storagePercentage > 80 ? '#f44336' : storagePercentage > 60 ? '#ff9800' : '#4caf50',
               height: '100%',
               width: `${Math.min(storagePercentage, 100)}%`,
-              transition: 'width 0.3s ease',
-              borderRadius: '8px'
+              transition: 'width 0.3s'
             }} />
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '12px',
-              fontWeight: '600',
-              color: storagePercentage > 50 ? 'white' : '#2d3748'
-            }}>
-              {storagePercentage.toFixed(1)}%
-            </div>
           </div>
-          <p style={{ margin: '0 0 16px 0', color: '#4a5568' }}>
-            <strong>Used:</strong> {formatBytes(storageInfo.used)} / ~5 MB
-          </p>
-          <div style={{ 
-            background: '#f7fafc', 
-            padding: '16px', 
-            borderRadius: '8px',
-            border: '1px solid #e2e8f0'
-          }}>
-            <ul style={{ fontSize: '14px', margin: 0, color: '#718096' }}>
-              <li><strong>Saga3D diagrams:</strong> {formatBytes(storageInfo.diagrams)}</li>
-              <li><strong>Other data:</strong> {formatBytes(storageInfo.otherData)}</li>
-            </ul>
-          </div>
+          <p>Used: {formatBytes(storageInfo.used)} / ~5 MB ({storagePercentage.toFixed(1)}%)</p>
+          <ul style={{ fontSize: '14px' }}>
+            <li>Saga3D diagrams: {formatBytes(storageInfo.diagrams)}</li>
+            <li>Other data: {formatBytes(storageInfo.otherData)}</li>
+          </ul>
         </div>
 
-        <div style={{ marginBottom: '24px' }}>
-          <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: '600' }}>Actions</h3>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button 
-              onClick={exportAllDiagrams}
-              style={{
-                padding: '12px 20px',
-                background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500',
-                boxShadow: '0 2px 8px rgba(72, 187, 120, 0.3)',
-                transition: 'all 0.2s'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(72, 187, 120, 0.4)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(72, 187, 120, 0.3)';
-              }}
-            >
-              📥 Export All Diagrams
-            </button>
-            <button 
-              onClick={clearOldDiagrams}
-              style={{
-                padding: '12px 20px',
-                background: 'linear-gradient(135deg, #f56565 0%, #e53e3e 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500',
-                boxShadow: '0 2px 8px rgba(245, 101, 101, 0.3)',
-                transition: 'all 0.2s'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(245, 101, 101, 0.4)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(245, 101, 101, 0.3)';
-              }}
-            >
-              🗑️ Clear All Diagrams
-            </button>
-          </div>
+        <div style={{ marginBottom: '20px' }}>
+          <h3>Actions</h3>
+          <button 
+            onClick={exportAllDiagrams}
+            style={{
+              padding: '10px 20px',
+              marginRight: '10px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Export All Diagrams
+          </button>
+          <button 
+            onClick={clearOldDiagrams}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Clear All Diagrams
+          </button>
         </div>
 
-        <div className="alert info" style={{ marginBottom: '24px' }}>
-          <strong>💡 Tips to save space:</strong>
-          <ul style={{ marginBottom: 0, marginTop: '8px' }}>
+        <div style={{ 
+          backgroundColor: '#f8f9fa',
+          padding: '15px',
+          borderRadius: '4px',
+          marginBottom: '20px',
+          fontSize: '14px'
+        }}>
+          <strong>Tips to save space:</strong>
+          <ul style={{ marginBottom: 0 }}>
             <li>Export diagrams you don't need immediately</li>
             <li>Delete old versions of diagrams</li>
             <li>Clear browser cache if needed</li>
           </ul>
         </div>
 
-        <div className="dialog-buttons">
-          <button onClick={onClose} className="secondary" style={{ width: '100%' }}>
-            Close
-          </button>
-        </div>
+        <button 
+          onClick={onClose}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#6c757d',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            width: '100%'
+          }}
+        >
+          Close
+        </button>
       </div>
     </div>
   );

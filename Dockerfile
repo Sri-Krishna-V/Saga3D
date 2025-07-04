@@ -1,10 +1,10 @@
 FROM node:22-alpine
 
 USER node
-WORKDIR /opt/openflow
+WORKDIR /opt/saga3d
 
 COPY --chown=node:node package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 COPY --chown=node:node . .
 
