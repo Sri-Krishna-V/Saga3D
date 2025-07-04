@@ -1,0 +1,105 @@
+.viewport-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--saga-spacing-sm);
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  background: var(--saga-surfaceElevated);
+  border: 1px solid var(--saga-border);
+  border-radius: var(--saga-radius-md);
+  padding: var(--saga-spacing-xs);
+  box-shadow: var(--saga-shadow-sm);
+  gap: 2px;
+}
+
+.view-controls {
+  display: flex;
+  gap: var(--saga-spacing-xs);
+}
+
+.control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--saga-surface);
+  border: 1px solid var(--saga-border);
+  border-radius: var(--saga-radius-sm);
+  color: var(--saga-textPrimary);
+  cursor: pointer;
+  transition: all var(--saga-transition-fast);
+}
+
+.control-button:hover:not(:disabled) {
+  background: var(--saga-buttonPrimary);
+  color: var(--saga-buttonPrimaryText);
+  border-color: var(--saga-buttonPrimary);
+  transform: translateY(-1px);
+}
+
+.control-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: var(--saga-textTertiary);
+}
+
+.control-button:focus {
+  outline: none;
+  box-shadow: var(--saga-shadow-accent);
+}
+
+.zoom-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 32px;
+  padding: 0 var(--saga-spacing-sm);
+  font-size: var(--saga-font-xs);
+  font-weight: 600;
+  color: var(--saga-textPrimary);
+  background: var(--saga-surfaceSecondary);
+  border-radius: var(--saga-radius-sm);
+  user-select: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .viewport-controls {
+    gap: var(--saga-spacing-xs);
+  }
+  
+  .control-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .zoom-display {
+    height: 36px;
+    font-size: var(--saga-font-sm);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .control-button {
+    transition: none;
+  }
+  
+  .control-button:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .control-button:active:not(:disabled) {
+    transform: none;
+  }
+}

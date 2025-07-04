@@ -1,7 +1,7 @@
 // src/components/layout/StatusBar.tsx
 import React from 'react';
 import { DiagramHookState, DialogState } from '../../types';
-import { theme } from '../../styles/theme';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface StatusBarProps {
   diagramState: DiagramHookState;
@@ -14,10 +14,11 @@ export const StatusBar: React.FC<StatusBarProps> = ({
 }) => {
   const { currentModel, lastAutoSave } = diagramState;
   const { openDialog } = dialogState;
+  const { theme } = useTheme();
   
   return (
     <div className="status-bar">
-      <div style={{ display: 'flex', gap: theme.spacing.md }}>
+      <div className="status-group">
         <div className="status-item">
           📊 Elements: {currentModel?.items?.length || 0}
         </div>
@@ -30,7 +31,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
           </div>
         )}
       </div>
-      <div style={{ display: 'flex', gap: theme.spacing.md }}>
+      <div className="status-group">
         <div 
           className="status-item clickable"
           onClick={() => openDialog('storage')}

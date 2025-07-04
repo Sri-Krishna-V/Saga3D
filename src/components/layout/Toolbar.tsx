@@ -1,6 +1,6 @@
 // src/components/layout/Toolbar.tsx
 import React from 'react';
-import { theme } from '../../styles/theme';
+import { useTheme } from '../../contexts/ThemeContext';
 import { DiagramHookState, DiagramHookActions, DialogState } from '../../types';
 
 interface ToolbarProps {
@@ -21,6 +21,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   } = diagramState;
   
   const { openDialog } = dialogState;
+  const { theme } = useTheme();
 
   return (
     <div className="toolbar">
@@ -32,13 +33,13 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       </div>
       
       <div className="toolbar-group">
-        <button onClick={createNewDiagram} className="primary">
+        <button onClick={createNewDiagram} className="btn btn-primary">
           📄 New
         </button>
-        <button onClick={() => openDialog('save')} className="secondary">
+        <button onClick={() => openDialog('save')} className="btn btn-secondary">
           💾 Save
         </button>
-        <button onClick={() => openDialog('load')} className="secondary">
+        <button onClick={() => openDialog('load')} className="btn btn-secondary">
           📁 Load
         </button>
       </div>
@@ -46,13 +47,13 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       <div className="toolbar-group">
         <button 
           onClick={() => openDialog('import')}
-          className="success"
+          className="btn btn-success"
         >
           📂 Import
         </button>
         <button 
           onClick={() => openDialog('export')}
-          className="success"
+          className="btn btn-success"
         >
           💾 Export
         </button>
@@ -66,14 +67,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             }
           }}
           disabled={!currentDiagram || !hasUnsavedChanges}
-          className="warning"
+          className="btn btn-warning"
           title="Save to current session only"
         >
           ⚡ Quick Save
         </button>
         <button 
           onClick={() => openDialog('keyboard')}
-          className="secondary"
+          className="btn btn-secondary"
           title="Keyboard shortcuts"
         >
           ⌨️ Help
@@ -85,10 +86,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           <div className={`status-indicator ${hasUnsavedChanges ? 'modified' : ''}`}></div>
           <div>
             <strong>{currentDiagram ? currentDiagram.name : diagramName || 'Untitled Diagram'}</strong>
-            {hasUnsavedChanges && <span style={{ 
-              color: theme.colors.warning, 
-              fontWeight: 'normal' 
-            }}> • Modified</span>}
+            {hasUnsavedChanges && <span className="modified-indicator"> • Modified</span>}
             <div className="session-note">Session storage only - export to save permanently</div>
           </div>
         </div>

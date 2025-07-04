@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { theme } from '../styles/theme';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Props {
   children: ReactNode;
@@ -53,103 +53,40 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div style={{
-          padding: theme.spacing.xl,
-          textAlign: 'center',
-          backgroundColor: theme.colors.background,
-          color: theme.colors.textPrimary,
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <div style={{
-            maxWidth: '600px',
-            padding: theme.spacing.lg,
-            backgroundColor: theme.colors.surface,
-            borderRadius: theme.borderRadius.lg,
-            border: `1px solid ${theme.colors.border}`
-          }}>
-            <h1 style={{ 
-              color: theme.colors.danger, 
-              marginBottom: theme.spacing.md,
-              fontSize: theme.fontSizes.xl
-            }}>
+        <div className="error-boundary-container">
+          <div className="error-boundary-content">
+            <h1 className="error-boundary-title">
               🚨 Saga3D Error
             </h1>
             
-            <p style={{ 
-              marginBottom: theme.spacing.md,
-              color: theme.colors.textSecondary,
-              lineHeight: '1.6'
-            }}>
+            <p className="error-boundary-message">
               Something went wrong while rendering the application. 
               Your work is safe - try reloading the page.
             </p>
 
-            <div style={{
-              display: 'flex',
-              gap: theme.spacing.md,
-              justifyContent: 'center',
-              marginBottom: theme.spacing.lg
-            }}>
+            <div className="error-boundary-actions">
               <button
                 onClick={this.handleReload}
-                style={{
-                  padding: `${theme.spacing.sm} ${theme.spacing.md}`,
-                  backgroundColor: theme.colors.primary,
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: theme.borderRadius.md,
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
+                className="btn btn-primary"
               >
                 🔄 Reload Page
               </button>
               
               <button
                 onClick={this.handleReset}
-                style={{
-                  padding: `${theme.spacing.sm} ${theme.spacing.md}`,
-                  backgroundColor: theme.colors.surface,
-                  color: theme.colors.textPrimary,
-                  border: `1px solid ${theme.colors.border}`,
-                  borderRadius: theme.borderRadius.md,
-                  cursor: 'pointer'
-                }}
+                className="btn btn-secondary"
               >
                 🔄 Try Again
               </button>
             </div>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
-              <details style={{
-                textAlign: 'left',
-                backgroundColor: theme.colors.background,
-                padding: theme.spacing.md,
-                borderRadius: theme.borderRadius.sm,
-                border: `1px solid ${theme.colors.border}`,
-                marginTop: theme.spacing.md
-              }}>
-                <summary style={{ 
-                  cursor: 'pointer', 
-                  marginBottom: theme.spacing.md,
-                  fontWeight: '500',
-                  color: theme.colors.warning
-                }}>
+              <details className="error-boundary-details">
+                <summary className="error-boundary-summary">
                   🔧 Error Details (Development Mode)
                 </summary>
                 
-                <div style={{
-                  fontSize: theme.fontSizes.sm,
-                  fontFamily: 'monospace',
-                  color: theme.colors.textSecondary,
-                  whiteSpace: 'pre-wrap',
-                  overflow: 'auto',
-                  maxHeight: '200px'
-                }}>
+                <div className="error-boundary-stack">
                   <strong>Error:</strong> {this.state.error.toString()}
                   {this.state.errorInfo && (
                     <>

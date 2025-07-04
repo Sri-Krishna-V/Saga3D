@@ -54,7 +54,7 @@ const NotificationItem: React.FC<{
         return {
           ...baseStyles,
           background: '#fef2f2',
-          borderColor: theme.colors.danger,
+          borderColor: theme.colors.error,
           color: '#dc2626'
         };
       case 'warning':

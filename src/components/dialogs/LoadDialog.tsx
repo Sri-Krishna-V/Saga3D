@@ -35,7 +35,7 @@ export const LoadDialog: React.FC<LoadDialogProps> = ({
             <div style={{ 
               textAlign: 'center', 
               padding: theme.spacing.xl, 
-              color: theme.colors.textLight 
+              color: theme.colors.textSecondary 
             }}>
               <p>No saved diagrams found in this session</p>
             </div>
