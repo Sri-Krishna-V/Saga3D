@@ -1,8 +1,23 @@
-.App {
+/* Main app container */
+.app {
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+/* Main content area */
+.app-main {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Main canvas styling */
+.main-canvas {
+  height: 100%;
+  width: 100%;
 }
 
 .toolbar {
